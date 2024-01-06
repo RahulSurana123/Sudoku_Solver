@@ -1,13 +1,8 @@
 
-
-
-
-
 /* 
     Developed by Rahul Surana
     
     ***********************************************************
-
 
 	Here I am Going to use dfs solution to find a correct 
 
@@ -22,19 +17,8 @@
 		yth Column ( 1 <= y  <= 9) and 
 		k No to be filled ( 1 <= k  <= 9) 
 
-
-
     ***********************************************************
 */
-
-
-
-
-
-
-
-
-
 
 
 #include <bits/stdc++.h>
@@ -113,82 +97,23 @@ void display(){
 }
 
 bool error(pair<int,int> pos, int num){
-	// if(sudoku[pos.first][k])
 	for(int k = 0; k < 9; k++){
-		if(pos.second != k && sudoku[pos.first][k] == num) return false;
-		if(pos.first != k && sudoku[k][pos.second] == num) return false;
-	}
-	if( pos.first < 3 && pos.second < 3) {
-		for(auto x: blocks[0]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first < 3 && pos.second >= 3 && pos.second <= 5) {
-		for(auto x: blocks[1]){
-			if( pos.first !=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first < 3 && pos.second >5) {
-		for(auto x: blocks[2]){
-			if( pos.first !=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first >= 3 && pos.first <= 5 && pos.second < 3) {
-		for(auto x: blocks[3]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first >= 3 && pos.first<= 5 && pos.second >= 3 && pos.second <= 5) {
-		for(auto x: blocks[4]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first >= 3 && pos.first<= 5 && pos.second > 5) {
-		for(auto x: blocks[5]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first > 5 && pos.second < 3 ) {
-		for(auto x: blocks[6]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first > 5 && pos.second >= 3 && pos.second <= 5) {
-		for(auto x: blocks[7]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	else if( pos.first > 5 && pos.second > 5) {
-		for(auto x: blocks[8]){
-			if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
-				return false;
-			}
-		}
-	}
-	return true;
+            if(pos.second != k && sudoku[pos.first][k] == num) return false;
+            if(pos.first != k && sudoku[k][pos.second] == num) return false;
+        }
+
+        int block_number = (pos.first /3) *3 + pos.second/3;
+
+        for(auto x: blocks[block_number]){
+            if(pos.first!=x.first && pos.second != x.second && num == sudoku[x.first][x.second]){
+                return false;
+            }
+        }
+        return true;
 }
 
 
 bool solve(){
-	// if(ans < 50){
-		
-	// }
 	ans++;
 	auto u = getNext();
 	if(u.first == -1 && u.second == -1) return true;
@@ -214,7 +139,7 @@ bool solve(){
 
 int main()
 {
-	// fast_io;
+	fast_io;
 	init();
 	
 	int N;
